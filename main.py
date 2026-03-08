@@ -5047,10 +5047,11 @@ async def get_column_topic_full_comments(group_id: str, topic_id: int):
 
 if __name__ == "__main__":
     import sys
-    port = 8208  # 默认端口
+    # 优先使用环境变量 PORT（Railway 等云平台会自动注入）
+    port = int(os.environ.get("PORT", 8208))
     if len(sys.argv) > 2 and sys.argv[1] == "--port":
         try:
             port = int(sys.argv[2])
         except ValueError:
-            port = 8208
+            pass
     uvicorn.run(app, host="0.0.0.0", port=port)
